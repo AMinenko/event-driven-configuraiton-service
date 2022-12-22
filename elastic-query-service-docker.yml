@@ -1,4 +1,4 @@
-elastic-quey-service:
+elastic-query-service:
   version: 1.0
   custom-audience: elastic-query-service
 
