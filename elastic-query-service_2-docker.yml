@@ -1,0 +1,54 @@
+elastic-query-service:
+  version: 1.0
+  custom-audience: elastic-query-service
+
+server:
+  port: 8183
+  servlet:
+    context-path: /elastic-query-service
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/auth/realms/microservices-realm
+          jwk-set-uri: http://localhost:8081/auth/realms/microservices-realm/protocol/openid-connect/certs
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public&binaryTransfer=true&reWriteBatchedInserts=true
+    username: app_user
+    password: '{cipher}9216cb6b5acf6a230c293ebaa3d80879de1d51444141b2e069e7b3a1032e1dbe'
+    driver-class-name: org.postgresql.Driver
+
+elastic-query-config:
+  text-field: text
+
+elastic-config:
+  index-name: twitter-index
+  connection-url: http://localhost:9200
+  connect-timeout-ms: 5000
+  socket-timeout-ms: 30000
+
+user-config:
+  username: test
+  password: '{cipher}20ad8f0224702361515b835e2794326e6c7d222cb532ac4fdab2d4b18e9bc724'
+  roles: USER
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+security:
+  paths-to-ignore: /api-docs
